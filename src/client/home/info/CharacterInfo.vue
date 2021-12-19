@@ -1,33 +1,32 @@
 <template>
 
-  <div class="center">
     <div class="character-info">
 
-      <SectionHeader tittle="General Information"></SectionHeader>
-      <DataCell property="Eye Color" value="person.eyeColor"></DataCell>
-      <DataCell property="Hair Color" value="person.hairColor"></DataCell>
-      <DataCell property="Skin Color" value="person.skinColor"></DataCell>
-      <DataCell property="Birth Year" value="person.birthYear"></DataCell>
+      <div v-if="person !=null">
+        <SectionHeader tittle="General Information"></SectionHeader>
+        <DataCell property="Eye Color" :value="person.eyeColor"></DataCell>
+        <DataCell property="Hair Color" :value="person.hairColor"></DataCell>
+        <DataCell property="Skin Color" :value="person.skinColor"></DataCell>
+        <DataCell property="Birth Year" :value="person.birthYear"></DataCell>
 
-      <SectionHeader tittle="Vehicles"></SectionHeader>
-
-      <div v-if="person.vehicleConnection.vehicles.length">
-        <DataCell v-for= "(vehicle,index) in person.vehicleConection.vehicles"
-        :key="index"
-        property="vehicle.name"></DataCell>
+        <SectionHeader tittle="Vehicles"></SectionHeader>
+        <div v-if="person.vehicleConnection.vehicles.length">
+          <DataCell v-for= "(vehicle,index) in person.vehicleConnection.vehicles"
+                    :key="index"
+                    :property="vehicle.name"></DataCell>
+        </div>
       </div>
 
       <div v-else>
         <DataCell property="No data to display"></DataCell>
       </div>
 
-      <div v-if="errorLoadingPerson">
-        <NoticeCell></NoticeCell>
-      </div>
-      
-
     </div>
-  </div>
+    <div v-if="errorLoadingPerson">
+      <NoticeCell></NoticeCell>
+    </div>
+
+
 
 </template>
 
@@ -60,12 +59,15 @@ export default {
       }
     })
   },
+
   setup(){
+
     const store = useStore();
 
     store.subscribe((mutation,state)=>{
 
       if(mutation.type === "SET_SELECTED_ID"){
+
         if(state.selectedId === "") return;
 
         store.dispatch("setLoadingPerson", true);
@@ -97,6 +99,7 @@ export default {
   flex-direction: column;
   align-items: baseline;
   height: 100%;
+  widht: 55vw;
 }
 
 </style>

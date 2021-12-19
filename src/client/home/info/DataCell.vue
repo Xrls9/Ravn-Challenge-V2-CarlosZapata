@@ -35,8 +35,9 @@ export default {
 <style scoped>
   
   .row{
+    box-shadow: 0px 1px 0px 0px rgb(0 0 0 / 9%);
     gap: 42vw;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
   }
 

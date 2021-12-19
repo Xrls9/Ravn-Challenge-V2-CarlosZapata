@@ -10,7 +10,7 @@
         :name =  "person.node.name"
         :specie =  "person.node.species"
         :homeworld =  "person.node.homeworld"
-        @click = "selectId(person.node.id)"
+        v-on:click = "selectPerson(person.node.id)"
       ></PersonCell>
     </div>
   </div>
@@ -19,7 +19,7 @@
 
 <script>
 
-import {  mapState } from 'vuex';
+import {mapState } from 'vuex';
 import PersonCell from './PersonCell.vue';
 
 export default {

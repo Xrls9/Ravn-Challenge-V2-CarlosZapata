@@ -2,15 +2,15 @@
 
   <Header/>
 
-  <div class="container">
+  <div class="container row">
 
-    <div class="container__main">
+    <div class="list-container">
       <CharacterList></CharacterList>
       <LoadingCell v-if="hasNextPage && !errorPeople"></LoadingCell>
       <NoticeCell v-else-if="errorPeople"></NoticeCell>
     </div>
 
-    <div class="container__info">
+    <div class="data-container">
       <CharacterInfo/> 
     </div>
 
@@ -59,7 +59,7 @@ export default ({
 
       if (result.loading.value) return;
 
-      if (result.error.value != null) {
+      if (result.error.value) {
 
         store.dispatch("setErrorLoadingPeople", result.error.value);
         store.dispatch("dropAllPeople");
@@ -67,15 +67,15 @@ export default ({
 
       }
 
-      store.dispatch("addPeople", result);
+      store.dispatch("fetchPeople", result);
 
-      if (store.state.lastCursor == null) {
+      if (store.state.cursor) {
 
-        result = getFivePeople(store.state.lastCursor);
+        result = getFivePeople(store.state.cursor);
 
         if (!result.loading.value) {
 
-          store.dispatch("addPeople", result);
+          store.dispatch("fetchPeople", result);
 
         }
       }
@@ -86,6 +86,16 @@ export default ({
 </script>
 
 <style scoped>
+
+.list-container,.data-container{
+  width: fit-content;
+}
+.data-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 </style>
 
 

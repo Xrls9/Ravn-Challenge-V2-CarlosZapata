@@ -1,9 +1,10 @@
 import { createStore } from "vuex";
 
 export default createStore({
+
     state: {
         people: [],
-        lastCursor: "",
+        cursor: "",
         hasNextPage: true,
         selectedId: "",
         selectedPerson: null,
@@ -13,11 +14,11 @@ export default createStore({
     },
     mutations: {
 
-        ADD_PEOPLE(state, people) {
+        FETCH_PEOPLE(state, people) {
             state.people.push(...people)
         },
         SET_LAST_CURSOR(state, value) {
-            state.lastCursor = value
+            state.cursor = value
         },
         SET_HAS_NEXT_PAGE(state, value) {
             state.hasNextPage = value
@@ -34,7 +35,7 @@ export default createStore({
         SET_ERROR_LOADING_PERSON(state, value) {
             state.errorLoadingPerson = value;
         },
-        DROP_ALL_PEOPLE(state) {
+        CLEAR_LIST(state) {
             state.people = []
         },
         SET_LOADING_PERSON(state, value) {
@@ -44,13 +45,11 @@ export default createStore({
 
     actions: {
 
-        addPeople({ commit }, result) {
-            // check if the result has next page to continue making querys
+        fetchPeople({ commit }, result) {
+
             if (result.hasNextPage.value) {
 
-                console.log(result.dataPeople.value);
-
-                commit("ADD_PEOPLE", result.dataPeople.value)
+                commit("FETCH_PEOPLE", result.dataPeople.value)
 
                 const len = result.dataPeople.value.length
 
@@ -72,7 +71,7 @@ export default createStore({
         },
       
         setPerson({ commit }, result) {
-            // edit the person data if there is no errors
+            
             const error = result.error.value
             if (error !== null) {
                 commit("SET_ERROR_LOADING_PERSON", result.error.value)
@@ -87,7 +86,7 @@ export default createStore({
         },
 
         dropAllPeople({ commit }) {
-            commit("DROP_ALL_PEOPLE")
+            commit("CLEAR_LIST")
             commit("SET_SELECTED_PERSON", null)
             commit("SET_SELECTED_ID", "")
             commit("SET_LAST_CURSOR", "")
