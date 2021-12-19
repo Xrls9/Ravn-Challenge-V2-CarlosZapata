@@ -24,6 +24,20 @@ Notice that you neet to know about state management.
 I used Mutations on a basic level, so you can save the data you need to make the app keep going.
 I haven't used hooks, you can improve this version by using them.
 
+### Technologies
+
+Vue.js
+Vuex (for state management)
+Javascript
+Html5
+Css
+ApolloClient
+GraphQL
+
+### Important
+
+Some of the libraries are deprecated, so you must look for new alternatives. 
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
